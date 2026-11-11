@@ -1,0 +1,25 @@
+title: "Anti-Forensics: Log or History Destruction"
+id: b3000011-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects truncation of system logs or destruction of shell history via filesystem shrinkage or known log-clearing commands.
+author: Exonerve
+level: high
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: log_tamper
+  condition: selection
+falsepositives:
+  - Log rotation shrinks files legitimately — verify against the rotation schedule
+fields:
+  - path
+  - previous_size
+  - current_size
+  - pattern
+tags:
+  - attack.defense_evasion
+  - attack.t1070.002
+  - attack.t1070.003

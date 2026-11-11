@@ -1,0 +1,23 @@
+title: Container Escape / Runtime Socket Abuse
+id: b3000005-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects access to a container runtime socket (docker.sock, containerd.sock) or host-filesystem reach-through. Holding the runtime socket is equivalent to host root.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: container_escape
+  condition: selection
+falsepositives:
+  - CI runners and management tooling with intentionally mounted docker.sock
+fields:
+  - process
+  - socket
+  - host_path
+tags:
+  - attack.privilege_escalation
+  - attack.t1611

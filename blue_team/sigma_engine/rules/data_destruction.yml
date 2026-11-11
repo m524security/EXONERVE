@@ -1,0 +1,22 @@
+title: Destructive Wipe / Mass File Deletion
+id: b3000010-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects mass file deletion. Distinct from ransomware: nothing is encrypted, so the entropy sensors never fire and this is the only signal.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: data_destruction
+  condition: selection
+falsepositives:
+  - Large scheduled cleanup jobs and cache eviction
+fields:
+  - deleted_count
+  - sample_paths
+tags:
+  - attack.impact
+  - attack.t1485

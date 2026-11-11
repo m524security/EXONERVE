@@ -1,0 +1,16 @@
+title: Hypervisor / ESXi Datastore Encryption
+id: b2000006-0000-4000-a000-exonerve0012
+status: stable
+description: Detects mass encryption of virtual-machine disk artifacts (.vmdk/.vmx/.vswp) on an ESXi datastore — the modern ransomware move that encrypts many VMs at once from the host.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: ransomware_esxi
+  condition: selection
+tags:
+  - attack.impact
+  - attack.t1486

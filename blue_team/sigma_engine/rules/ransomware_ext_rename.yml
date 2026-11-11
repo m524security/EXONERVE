@@ -1,0 +1,26 @@
+title: Mass File Extension Rename (Ransomware Marker)
+id: b2000007-0000-4000-a000-exonerve0013
+status: stable
+description: >
+  Detects a burst of newly-created files sharing a single uncommon extension
+  (.locked, .wncry, .crypt, ...), the signature ransomware leaves when it
+  renames its encrypted output. Fires earlier than the entropy burst detector
+  and is independent of encryption speed.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: ext_rename
+  condition: selection
+falsepositives:
+  - Build or export tooling emitting many artifacts with a non-standard suffix
+fields:
+  - extension
+  - file_count
+  - sample_paths
+tags:
+  - attack.impact
+  - attack.t1486

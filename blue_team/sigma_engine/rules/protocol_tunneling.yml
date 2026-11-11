@@ -1,0 +1,23 @@
+title: Reverse Tunnel / Ingress Exposure Tool
+id: b3000008-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects ngrok, cloudflared, chisel, frp and similar tunnelling tools, which expose internal services outbound and bypass perimeter controls.
+author: Exonerve
+level: high
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: tunnel
+  condition: selection
+falsepositives:
+  - Cloudflare Tunnel and Tailscale are frequently sanctioned infrastructure
+fields:
+  - tool
+  - cmdline
+  - commonly_sanctioned
+tags:
+  - attack.command_and_control
+  - attack.t1572

@@ -1,0 +1,23 @@
+title: Cryptomining / Resource Hijacking
+id: b3000009-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects mining by known binary name, by mining-pool port connection, and by sustained CPU. The behavioural path fires independently of process name, so renaming does not evade.
+author: Exonerve
+level: high
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: cryptominer
+  condition: selection
+falsepositives:
+  - Build servers and render farms sustain high CPU (requires a mining-specific indicator too)
+fields:
+  - process
+  - evidence
+  - confidence
+tags:
+  - attack.impact
+  - attack.t1496

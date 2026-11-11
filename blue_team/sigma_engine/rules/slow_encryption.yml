@@ -1,0 +1,24 @@
+title: Throttled (Slow-Burn) Encryption
+id: b2000008-0000-4000-a000-exonerve0014
+status: stable
+description: >
+  Detects cumulative plaintext-to-ciphertext transitions over a long window.
+  Modern ransomware throttles encryption specifically to stay under burst
+  (sigma) thresholds; this detector is rate-independent and catches the total.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: slow_encrypt
+  condition: selection
+falsepositives:
+  - Administrator bulk-encrypting a share (e.g. gpg over a document tree)
+fields:
+  - transitions
+  - files_per_minute
+tags:
+  - attack.impact
+  - attack.t1486

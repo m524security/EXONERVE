@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="Exonerve — Out-of-Band Cyber Resilience">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e14"/>
+      <stop offset="100%" stop-color="#0d1420"/>
+    </linearGradient>
+    <linearGradient id="wordmark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="55%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#00b4d8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-150%" width="180%" height="400%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient id="vignette" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#101826" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#04060a" stop-opacity="0.65"/>
+    </radialGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M 34 0 L 0 0 0 34" fill="none" stroke="#1c2836" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="320" fill="url(#bg)"/>
+  <rect width="1280" height="320" fill="url(#grid)" opacity="0.55"/>
+  <rect width="1280" height="320" fill="url(#vignette)"/>
+
+  <!-- signal trace: quiet everywhere except where it reads the wordmark -->
+  <g opacity="0.55" filter="url(#glow)">
+    <path d="M -20 150
+             L 140 150
+             L 168 150 182 108 196 150
+             L 260 150
+             L 288 150 302 190 316 150
+             L 420 150
+             L 448 150 460 96 472 150 484 200 496 150
+             L 620 150
+             L 648 150 660 60 672 150 684 216 696 150
+             L 820 150
+             L 848 150 860 96 872 150 884 200 896 150
+             L 1020 150
+             L 1048 150 1062 108 1076 150
+             L 1140 150
+             L 1300 150"
+          fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- three trust-plane markers riding the trace -->
+  <circle cx="196" cy="150" r="5" fill="#22c55e"/>
+  <circle cx="660" cy="60" r="5.5" fill="#ff6b35"/>
+  <circle cx="1076" cy="150" r="5" fill="#9d6cff"/>
+
+  <!-- wordmark -->
+  <text x="640" y="182" text-anchor="middle"
+        font-family="ui-monospace, 'Cascadia Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace"
+        font-size="92" font-weight="700" letter-spacing="14"
+        fill="url(#wordmark)">EXONERVE</text>
+
+  <!-- tagline -->
+  <text x="640" y="228" text-anchor="middle"
+        font-family="ui-monospace, 'Cascadia Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace"
+        font-size="19" font-weight="500" letter-spacing="6.5"
+        fill="#7b8a9c">OUT-OF-BAND CYBER RESILIENCE</text>
+
+  <!-- kicker line -->
+  <text x="640" y="262" text-anchor="middle"
+        font-family="ui-monospace, 'Cascadia Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace"
+        font-size="13.5" letter-spacing="1.5"
+        fill="#3d4a5a">ransomware can&#8217;t kill what it can&#8217;t reach</text>
+</svg>

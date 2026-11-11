@@ -1,0 +1,23 @@
+title: Cloud Instance Metadata Credential Theft
+id: b3000001-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects a process contacting the link-local cloud metadata endpoint (169.254.169.254). A web server or interpreter reaching IMDS is the SSRF-to-cloud-credential-theft signature.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: imds_access
+  condition: selection
+falsepositives:
+  - Cloud agents and provisioning tooling legitimately poll IMDS (allowlisted in the sensor)
+fields:
+  - process
+  - endpoint
+  - high_risk_process
+tags:
+  - attack.credential_access
+  - attack.t1552.005

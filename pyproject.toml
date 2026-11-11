@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exonerve"
+version = "3.13.0"
+description = "Out-of-band, self-healing SOC + Blue-Team resilience platform"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "m524security" }]
+keywords = ["security", "soc", "blue-team", "ids", "ips", "waf", "self-healing", "mitre-attack", "ransomware"]
+dependencies = [
+    "flask>=3.1,<4",
+    "requests>=2.32",
+    "psutil>=6.0",
+    "cryptography>=42.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+exonerve = "exonerve_cli:main"
+
+[tool.setuptools]
+py-modules = ["exonerve_cli"]
+packages = ["common", "self_healing"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

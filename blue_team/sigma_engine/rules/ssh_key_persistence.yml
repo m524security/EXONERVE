@@ -1,0 +1,23 @@
+title: SSH authorized_keys Persistence
+id: b3000013-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects keys appended to authorized_keys — durable persistence that survives password rotation and MFA.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: ssh_persistence
+  condition: selection
+falsepositives:
+  - Legitimate key rotation and configuration-management deployments
+fields:
+  - path
+  - keys_added
+  - key_prefixes
+tags:
+  - attack.persistence
+  - attack.t1098.004

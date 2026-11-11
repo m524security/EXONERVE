@@ -1,0 +1,13 @@
+# Exonerve :: Sentry Agent — pinned dependencies
+psutil==7.2.2
+# Optional: AES-256-GCM for the telemetry channel. Falls back to stdlib
+# HMAC-AEAD if absent (the agent never requires a third-party crypto lib).
+cryptography>=42.0.0
+# Optional: event-driven filesystem monitoring (inotify/ReadDirectoryChangesW/
+# FSEvents). Falls back to polling if absent.
+watchdog>=4.0.0
+# Hardened XML parsing for kernel_telemetry.py's Sysmon consumer — protects
+# against entity-expansion DoS and external entity resolution. Falls back to
+# stdlib xml.etree.ElementTree (with a loud warning) if absent, but should be
+# treated as required wherever Sysmon XML from an untrusted source is parsed.
+defusedxml>=0.7.1

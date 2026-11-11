@@ -1,0 +1,24 @@
+title: C2 over Legitimate Web Service
+id: b3000007-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects a non-browser process communicating with Discord, Telegram, Slack, GitHub or paste services — SaaS-fronted C2 whose destination looks unremarkable.
+author: Exonerve
+level: high
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: web_service_c2
+  condition: selection
+falsepositives:
+  - Internal automation posting to Slack/Discord webhooks
+  - CI tooling pulling from raw.githubusercontent
+fields:
+  - process
+  - service
+  - resolved_host
+tags:
+  - attack.command_and_control
+  - attack.t1102.002

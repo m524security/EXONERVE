@@ -1,0 +1,31 @@
+title: Honeytoken/Canary File Accessed
+id: b3000017-0000-4000-a000-exonerve999
+status: stable
+description: >
+  A planted decoy file (fake credentials, fake customer data — never real)
+  was accessed. Near-zero false-positive by design: no legitimate process
+  has any reason to open a file this agent invented. Reliable read
+  detection requires an auditd watch rule on the planted path (see
+  HoneytokenManager.auditctl_watch_commands) — without it, this rule never
+  fires even though the file exists, which is a deployment gap, not a
+  detector gap.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: honeytoken_accessed
+  condition: selection
+falsepositives:
+  - Effectively none once the honeytoken content itself does not identify
+    it as bait (fixed in v3.13 — see CHANGELOG.md) AND the auditd watch
+    rule is actually installed
+fields:
+  - process
+  - pid
+  - paths
+tags:
+  - attack.collection
+  - attack.t1005

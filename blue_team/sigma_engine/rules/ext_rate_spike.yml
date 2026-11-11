@@ -1,0 +1,34 @@
+title: Novel File Extension Rate Spike (Randomised-Extension Ransomware)
+id: b3000014-0000-4000-a000-exonerve999
+status: stable
+description: >
+  Detects a burst of never-before-seen file extensions appearing in a short
+  window — the signal ransomware families that randomise the output
+  extension per victim file leave, which never clusters on one shared
+  extension and so never trips the mass-rename rule above. Also fires on
+  the slower, accumulated form of the same behaviour across a 24h window
+  (see distinct_new_extensions / window_seconds in the event fields), which
+  specifically catches an attacker tuning a medium-sized extension pool to
+  stay under both this and the mass-rename rule's per-window thresholds.
+author: Exonerve
+level: critical
+logsource:
+  product: exonerve
+  service: sentry_agent
+detection:
+  selection:
+    event_type: ext_rate_spike
+  condition: selection
+falsepositives:
+  - A large multi-language build producing many distinct object-file
+    extensions for the first time on a given host (mitigated by a
+    novelty-ratio requirement in the detector itself — see
+    ransomware_sensors.py NOVEL_EXT_MIN_RATIO)
+fields:
+  - distinct_new_extensions
+  - window_seconds
+  - novelty_ratio
+  - sample_extensions
+tags:
+  - attack.impact
+  - attack.t1486
