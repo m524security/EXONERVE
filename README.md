@@ -85,8 +85,7 @@ python demo.py
 21. [Repository Structure](#repository-structure)
 22. [Roadmap](#roadmap)
 23. [Design Principles](#design-principles)
-24. [Versioning & Changelog](#versioning)
-25. [License](#license)
+24. [License](#license)
 
 ---
 
