@@ -1113,29 +1113,6 @@ EXONERVE/
 - **Honesty over hype.** The dashboard never claims a containment that didn't happen; the docs separate what's real from what's simulated.
 
 [↑ Back to top](#table-of-contents)
-
----
-
-<a id="versioning"></a>
-## 🏷️ Versioning & Changelog
-
-The version is defined once in [`VERSION`](VERSION) and exposed as `common.__version__`:
-```python
-import common
-print(common.__version__)   # 3.13.0
-```
-Exonerve follows [Semantic Versioning](https://semver.org/). The full, dated history — every fix, feature, and review-driven change — lives in **[CHANGELOG.md](CHANGELOG.md)**.
-
-**Current release `v3.13.0`.** Three rounds of work since the summary below (v3.11 incident case management + escalation paging, v3.12 kernel-adjacent telemetry + exfiltration detection + the human-in-the-loop response playbook, v3.13 evasion fixes + security hardening + documentation sync) — see `CHANGELOG.md` for the full, dated breakdown of each rather than a duplicated summary here. 44/44 verify, 375/375 tests, 31/31 ATT&CK replay with 35 Sigma rules (0% FP on the benign control set), 0/4 FP-corpus scenarios false-positive, sensor demo green.
-
-**v3.10.0** — architecture hardening + evasion closure, driven by `EXONERVE_NEXT_UPDATE_PROMPT.md`. Replaces the fixed-interval filesystem walk with OS-level eventing (`inotify`/`ReadDirectoryChangesW`/FSEvents via `watchdog`), auto-falling-back to polling — logged, never silent — when unavailable; adds real on-call paging (PagerDuty Events API v2 + generic webhook) gated on an actual deduped alert, not every event; adds a false-positive corpus (`tests/corpus/`) run against the live detectors, which found and fixed two real bugs (missing build-artifact extensions in the common-extension allowlist, and a novel-extension-rate signal that needed a ratio gate, not just a count threshold, to avoid false-positiving on a large CI build); closes the sparse/interior-block entropy-sampling bypass (head+middle+tail sampling, not head-only); adds a beacon-interval detector for low-volume C2 independent of transferred volume; and explicitly evaluates (rather than fakes coverage for) the VSS-COM-API and direct-to-IP-C2 evasions named in the prior review round, documenting the specific reason each remains open. A new residual gap — medium-cardinality extension randomisation evading both the clustering and novel-rate thresholds at once — was found while testing and is disclosed, not hidden, in `DEFENSE_GUIDE.md`. 44/44 verify, 233/233 tests (was 187), 27/27 ATT&CK replay (**0 FP on the included test set**, unchanged from v3.9 — the 2 new event types aren't in the replay matrix yet, tracked as a follow-up), 0/4 FP-corpus scenarios false-positive, sensor demo green.
-
-**Previous release `v3.9.0`** — extends detection beyond ransomware into the attack classes that dominate 2024-2026 incidents: cloud metadata credential theft, credential-file and Kubernetes token harvesting, infostealer access to browser credential and cookie stores, container escape, malicious package install-scripts, C2 over legitimate SaaS, tunnelling, cryptomining, destructive wipers, log tampering, reverse shells, and SSH key persistence. 13 new sensors, 14 new ATT&CK techniques (42 total), 13 new Sigma rules (31 total). Every one is emitter-backed and tested in **both** directions — fires on the attack, silent on the benign analogue. Fixes two real bugs found while testing: browser profile markers never matched real Linux paths (`~/.mozilla/firefox`, `~/.config/google-chrome`), and `basename()` on Linux does not split Windows paths — together these would have blinded the infostealer detector on both platforms. 44/44 verify, 187/187 tests, 27/27 ATT&CK replay (**0 FP on the included test set**), sensor demo green, fuzzing clean.
-
-**Previous release `v3.8.0`** — closes the ransomware gaps found in external review: adds live emitters for bulk exfil (T1567.002) and ESXi encryption (T1486) that previously existed only as replay-injected events; adds mass-extension-rename and slow-burn encryption detectors; replaces absolute-entropy scoring with plaintext→ciphertext **transition** scoring to remove the compressed-backup false positive; persists baselines across restarts; adds SIEM export (CEF/ECS/RFC5424); and publishes [DEFENSE_GUIDE.md](DEFENSE_GUIDE.md) documenting known evasions per detector. Also fixes a real detection gap the new end-to-end demo exposed: newly-created files were never entropy-checked, so ransomware that writes ciphertext to a new filename and deletes the original was invisible. 44/44 verify, 119/119 tests, 14/14 ATT&CK replay (**0 FP on the included test set**), sensor demo green, fuzzing clean.
-
-[↑ Back to top](#table-of-contents)
-
 ---
 
 <a id="license"></a>
